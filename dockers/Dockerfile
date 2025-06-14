@@ -1,4 +1,4 @@
-FROM 3.10-slim:latest
+FROM python:3.10-slim
 
 # 기본 도구 설치 및 보안 패치 적용
 RUN apt-get update && apt-get install -y \
