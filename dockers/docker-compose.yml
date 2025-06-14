@@ -2,8 +2,8 @@ services:
   devs:
     build:
       context: .
-      storage_opt:
-        size: "150G"
+    storage_opt:
+      size: "150G"
     # depends_on:
     #   - db_mongodb
     command: sleep infinity
