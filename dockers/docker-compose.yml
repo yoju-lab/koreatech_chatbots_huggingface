@@ -5,6 +5,8 @@ services:
     # depends_on:
     #   - db_mongodb
     command: sleep infinity
+    tmpfs:
+      - /root/.cache:size=50G,exec
   # db_mongodb:
   #   image: mongo:7
   #   restart: always
