@@ -1,0 +1,15 @@
+services:
+  devs:
+    build:
+      context: .
+      storage_opt:
+        size: "150G"
+    # depends_on:
+    #   - db_mongodb
+    command: sleep infinity
+  # db_mongodb:
+  #   image: mongo:7
+  #   restart: always
+  #   ports:
+  #     - 27017:27017
+  #   command: mongod --bind_ip 0.0.0.0      
