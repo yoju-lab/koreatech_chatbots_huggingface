@@ -1,4 +1,4 @@
-FROM pytorch/pytorch:latest
+FROM 3.10-slim:latest
 
 # 기본 도구 설치 및 보안 패치 적용
 RUN apt-get update && apt-get install -y \
