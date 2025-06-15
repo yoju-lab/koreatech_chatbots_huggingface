@@ -5,3 +5,4 @@ transformers
 sentencepiece
 huggingface-hub
 hf_xet
+sentence-transformers
