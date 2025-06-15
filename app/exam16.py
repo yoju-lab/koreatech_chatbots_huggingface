@@ -3,14 +3,17 @@ from fastapi.responses import HTMLResponse
 
 app = FastAPI()
 
+# http://localhost:8000/singlefile (POST)
 @app.post("/singlefile")
 async def create_file(file: bytes = File()):
   return {"file_size": len(file)}
 
+# http://localhost:8000/singleuploadfile (POST)
 @app.post("/singleuploadfile")
 async def create_upload_file(file: UploadFile):
   return {"filename": file.filename}
 
+# http://localhost:8000/
 @app.get("/")
 async def main():
   content = """

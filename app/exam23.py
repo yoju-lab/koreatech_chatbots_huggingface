@@ -16,6 +16,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
+# http://localhost:8000/summarize (POST)
 @app.post("/summarize", response_model = str)
 async def summary(file: UploadFile):
 	content = await file.read()
@@ -24,6 +25,7 @@ async def summary(file: UploadFile):
 	result = ml_model["summarizer"](content)
 	return f"요약된 내용 : {result[0]['summary_text']}"
 
+# http://localhost:8000/
 @app.get("/")
 async def main():
   content = """

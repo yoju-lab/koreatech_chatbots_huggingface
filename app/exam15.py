@@ -5,11 +5,13 @@ from fastapi.responses import HTMLResponse
 
 app = FastAPI()
 
+# http://localhost:8000/insert (POST)
 @app.post("/insert")
 async def login(username: Annotated[str, Form()], emailaddress: Annotated[str, Form()]):
   print(username, emailaddress)  
   return {"username" : username, "emailaddress" : emailaddress}
 
+# http://localhost:8000/
 @app.get("/")
 async def main():
   content = """

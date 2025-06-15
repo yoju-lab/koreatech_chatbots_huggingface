@@ -8,14 +8,24 @@ from fastapi.middleware.cors import CORSMiddleware
 from sentence_transformers import SentenceTransformer
 from transformers import pipeline
 import os
+from dotenv import load_dotenv
 
 ml_model = {}
+
+# .env 파일 로드
+env_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '.env')
+load_dotenv(env_path)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Load the AI model
     ml_model["embedding_model"] = SentenceTransformer("upskyy/bge-m3-korean", device="cpu")
-    ml_model["lm_model"] = pipeline("text-generation", model="google/gemma-3-1b-it")
+    lm_model_name = os.getenv("LM_MODEL_NAME", "gpt2")
+    hf_token = os.getenv("HF_TOKEN", None)
+    if hf_token:
+        ml_model["lm_model"] = pipeline("text-generation", model=lm_model_name, use_auth_token=hf_token)
+    else:
+        ml_model["lm_model"] = pipeline("text-generation", model=lm_model_name)
     print("AI 모델 로드 완료")
     yield
     ml_model.clear()
@@ -40,9 +50,13 @@ app.add_middleware(
 	allow_headers=["*"],
 )
 
+# http://localhost:8000/rag?query=호텔 예약
 @app.get("/rag")
 async def rag(query : str):
-    conn = psycopg.connect(dbname='edudb', user='edu', password='1234', autocommit=True)
+    conn = psycopg.connect(dbname='edudb', user='edu', password='1234'
+                        #    , host='localhost', port=5432
+                       , host='edupgvector', port=5432
+                        , autocommit=True)
     conn.execute('CREATE EXTENSION IF NOT EXISTS vector')
     register_vector(conn)
 

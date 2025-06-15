@@ -26,6 +26,7 @@ app.add_middleware(
 	allow_headers=["*"],
 )
 
+# http://localhost:8000/weather
 @app.get("/weather")
 async def main():
   res = urllib.request.urlopen("""http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=%2BjzsSyNtwmcqxUsGnflvs3rW2oceFvhHR8AFkM3ao%2Fw50hwHXgGyPVutXw04uAXvrkoWgkoScvvhlH7jgD4%2FRQ%3D%3D&numOfRows=10&pageNo=1&base_date=20250614&base_time=0500&nx=55&ny=127""")

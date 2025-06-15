@@ -19,6 +19,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
+# http://localhost:8000/imagetotext (POST)
 @app.post("/imagetotext", response_model = str)
 async def imagetotext(file: UploadFile):
 	content = await file.read()
@@ -26,6 +27,7 @@ async def imagetotext(file: UploadFile):
 	result = ml_model["imagetotext"](img_content)
 	return f"이미지에 대한 설명글 : {result[0]['generated_text']}"
 
+# http://localhost:8000/
 @app.get("/")
 async def main():
   content = """
@@ -40,4 +42,3 @@ async def main():
     """
   return HTMLResponse(content=content)
 
- 

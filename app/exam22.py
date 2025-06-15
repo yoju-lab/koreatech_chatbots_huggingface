@@ -22,6 +22,7 @@ app = FastAPI(lifespan=lifespan)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 app.mount("/static", StaticFiles(directory=os.path.join(BASE_DIR, "static")), name="static")
 
+# http://localhost:8000/predict (POST)
 @app.post("/predict", response_class = HTMLResponse)
 def predict(content: Annotated[str, Form()]):
   print(content)
@@ -32,6 +33,7 @@ def predict(content: Annotated[str, Form()]):
   
   return f"<h3>{result[0]['score']:.3f}% 정확도로 {'긍정' if result[0]['label'] == 'POSITIVE' else '부정'}입니다.</h3>"
 
+# http://localhost:8000/
 @app.get("/")
 async def main():
   content = """

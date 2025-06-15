@@ -4,10 +4,13 @@ from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 
 app = FastAPI()
+
+# http://localhost:8000/calc?num1=2&num2=3
 @app.get("/calc")
-async def login(num1:int, num2:int):
+async def login(num1: int, num2: int):
     return {"result" : num1 * num2}
 
+# http://localhost:8000/
 @app.get("/")
 async def main():
     content = """

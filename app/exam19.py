@@ -14,6 +14,7 @@ async def my_lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=my_lifespan) 
 
+# http://localhost:8000/singleuploadfile (POST)
 @app.post("/singleuploadfile")
 async def create_upload_file(file: UploadFile):
   path = f"static/files/{file.filename}"
@@ -27,6 +28,7 @@ async def create_upload_file(file: UploadFile):
       'path': path,
   }
 
+# http://localhost:8000/multiuploadfiles (POST)
 @app.post("/multiuploadfiles")
 async def create_upload_files(files: List[UploadFile]):
   result = []

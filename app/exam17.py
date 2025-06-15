@@ -4,14 +4,17 @@ from fastapi.responses import HTMLResponse
 
 app = FastAPI()
 
+# http://localhost:8000/files (POST)
 @app.post("/files")
 async def create_files(files: List[bytes] = File()):
     return {"file_sizes": [len(file) for file in files]}
 
+# http://localhost:8000/uploadfiles (POST)
 @app.post("/uploadfiles")
 async def create_upload_files(files: List[UploadFile]):
     return {"filenames": [file.filename for file in files]}
 
+# http://localhost:8000/
 @app.get("/")
 async def main():
 	content = """

@@ -14,10 +14,12 @@ async def startup(app: FastAPI):
 
 app = FastAPI(lifespan=startup)
 
+# http://localhost:8000/myfriend
 @app.get("/myfriend")
 async def main():
   return {"myfriend" : random.choice(friends)}
 
+# http://localhost:8000/
 @app.get("/")
 async def main():
   content = """

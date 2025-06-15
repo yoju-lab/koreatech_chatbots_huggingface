@@ -14,11 +14,13 @@ async def startup(app: FastAPI):
 
 app = FastAPI(lifespan=startup)
 
+# http://localhost:8000/predict (POST)
 @app.post("/predict", response_model = Dict)
 def predict(content: Annotated[str, Form()]):
   result = classifier(content)
   return result[0]
 
+# http://localhost:8000/
 @app.get("/")
 async def main():
   content = """

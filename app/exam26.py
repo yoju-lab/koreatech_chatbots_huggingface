@@ -47,3 +47,5 @@ async def translate_text(request: TranslationRequest):
 async def home(request: Request):
     return templates.TemplateResponse("exam26_v.html",{"request":request})
 
+# (엔드포인트 정의가 더 있을 경우 아래에 예제 URI 주석 추가)
+

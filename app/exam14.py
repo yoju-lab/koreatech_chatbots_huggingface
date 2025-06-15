@@ -12,10 +12,12 @@ class Item(BaseModel):
   tax: Union[float, None] = None
   tags: List[str] = []
 
+# http://localhost:8000/items1 (POST)
 @app.post("/items1", response_model=Item)
 async def proc1(item: Item) :
   return item
 
+# http://localhost:8000/items2
 @app.get("/items2", response_model=List[Item])
 async def proc2() :
   return [
@@ -29,10 +31,12 @@ my_items = [
     {"name": "Red", "description": "It's my aeroplane"},
 ]
 
+# http://localhost:8000/items3
 @app.get("/items3", response_model=List[Item])
 async def proc3():
     return my_items
 
+# http://localhost:8000/items4
 @app.get("/items4", response_model=dict[str, float])
 async def proc4():
   return {"foo": 2.3, "bar": 3.4}

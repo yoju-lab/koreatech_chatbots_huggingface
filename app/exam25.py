@@ -23,10 +23,12 @@ app = FastAPI(lifespan=lifespan)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 app.mount("/static", StaticFiles(directory=os.path.join(BASE_DIR, "static")), name="static") 
 
+# http://localhost:8000/
 @app.get("/", response_class=HTMLResponse)
 def read_root(request: Request):
   return templates.TemplateResponse("exam25_v1.html", {'request': request})
 
+# http://localhost:8000/summarize (POST)
 @app.post("/summarize", response_class=HTMLResponse)
 async def summary(request: Request, file: UploadFile):
   content = await file.read()
@@ -35,3 +37,8 @@ async def summary(request: Request, file: UploadFile):
   result = ml_model["summarizer"](content)
   summary = f"{result[0]['summary_text']}"
   return templates.TemplateResponse("exam25_v2.html", {"request": request, "summary": summary})
+
+# http://localhost:8000/call-summarize (POST)
+@app.post("/call-summarize", response_class=HTMLResponse)
+async def call_summarize(request: Request, file: UploadFile):
+  return await summary(request, file)
