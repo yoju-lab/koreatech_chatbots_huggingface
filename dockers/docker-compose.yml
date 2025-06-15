@@ -6,7 +6,7 @@ services:
       - edupgvector_db
     command: sleep infinity
     tmpfs:
-      - /:size=90G,exec
+      - /root/.cache:size=5G,exec
   edupgvector_db:
     image: ankane/pgvector
     container_name: edupgvector
