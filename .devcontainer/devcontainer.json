@@ -23,7 +23,8 @@
 				"ms-toolsai.jupyter-renderers",
 				"GitHub.copilot",
 				"GitHub.copilot-chat",
-				"ritwickdey.liveserver"
+				"ritwickdey.liveserver",
+				"tomoki1207.pdf"
 			],
 			"settings": {
 				"python.defaultInterpreterPath": "/usr/local/bin/python",
