@@ -6,6 +6,7 @@ from transformers import pipeline
 from contextlib import asynccontextmanager
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles 
+import os
 
 ml_model = {}
 
@@ -19,7 +20,8 @@ async def lifespan(app: FastAPI):
 
 templates = Jinja2Templates(directory="templates")
 app = FastAPI(lifespan=lifespan)
-app.mount("/static", StaticFiles(directory="static"), name="static") 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+app.mount("/static", StaticFiles(directory=os.path.join(BASE_DIR, "static")), name="static") 
 
 @app.get("/", response_class=HTMLResponse)
 def read_root(request: Request):

@@ -4,6 +4,7 @@ from transformers import pipeline
 from contextlib import asynccontextmanager
 from fastapi.staticfiles import StaticFiles
 from typing import Annotated
+import os
 
 ml_model = {}
 
@@ -18,7 +19,8 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+app.mount("/static", StaticFiles(directory=os.path.join(BASE_DIR, "static")), name="static")
 
 @app.post("/predict", response_class = HTMLResponse)
 def predict(content: Annotated[str, Form()]):
@@ -50,4 +52,4 @@ async def main():
         </form>
       </body>
     """
-  return HTMLResponse(content=content)  
+  return HTMLResponse(content=content)

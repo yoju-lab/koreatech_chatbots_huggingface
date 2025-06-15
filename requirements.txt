@@ -16,3 +16,4 @@ fastapi
 uvicorn
 jinja2
 bs4
+lxml
