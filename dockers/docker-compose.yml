@@ -2,14 +2,18 @@ services:
   devs:
     build:
       context: .
-    # depends_on:
-    #   - db_mongodb
+    depends_on:
+      - edupgvector_db
     command: sleep infinity
     tmpfs:
       - /:size=90G,exec
-  # db_mongodb:
-  #   image: mongo:7
-  #   restart: always
-  #   ports:
-  #     - 27017:27017
-  #   command: mongod --bind_ip 0.0.0.0      
+  edupgvector_db:
+    image: ankane/pgvector
+    container_name: edupgvector
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=edu
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=edudb
+    restart: unless-stopped   

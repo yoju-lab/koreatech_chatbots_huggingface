@@ -5,4 +5,13 @@ transformers
 sentencepiece
 huggingface-hub
 hf_xet
+ipywidgets
 sentence-transformers
+ollama
+pgvector
+psycopg[binary]
+datasets
+bitsandbytes
+fastapi
+uvicorn
+jinja2
